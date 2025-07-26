@@ -1,11 +1,31 @@
 import { useState, useEffect } from "react";
 import Loader from "../../components/Loader/Loader";
 import ProductCard from "../../components/ProductCard/ProductCard";
-import useProduct from "../../Hooks/useProduct";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
+// import useProduct from "../../Hooks/useProduct";
 
 const FeaturedProduct = () => {
-  const { products, refetch, isLoading } = useProduct();
+  // const { products, refetch, isLoading } = useProduct();
   const [visibleProducts, setVisibleProducts] = useState(10);
+  // const products = [];
+  const {
+    data: products = [],
+    refetch,
+    isLoading,
+  } = useQuery({
+    queryKey: ["product"],
+    queryFn: async () => {
+      const result = await useAxiosPublic.get("/featureProducts", {
+        params: {
+          isHot: true,
+          hasDiscount: true,
+          limit: 1,
+        },
+      });
+      return result.data;
+    },
+  });
 
   useEffect(() => {
     const updateVisibleProducts = () => {
@@ -48,10 +68,7 @@ const FeaturedProduct = () => {
               key={idx}
               className="snap-start flex-shrink-0 w-full sm:w-auto"
             >
-              <ProductCard
-                product={product}
-                refetch={refetch}
-              />
+              <ProductCard product={product} refetch={refetch} />
             </div>
           ))}
       </div>
