@@ -1,7 +1,7 @@
 import Loader from "../../components/Loader/Loader";
-import ProductCard from "../../components/ProductCard/ProductCard";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import HPCard from "../../components/HomeProductCard/HPCard";
 
 const FeaturedProduct = () => {
   const axiosPublic = useAxiosPublic();
@@ -26,7 +26,7 @@ const FeaturedProduct = () => {
     },
   });
 
-  console.log(featureProducts);
+  // console.log(featureProducts);
 
   if (isLoading) return <Loader />;
 
@@ -38,7 +38,7 @@ const FeaturedProduct = () => {
       <div className="grid grid-cols-2 md:grid-cols-3  lg:grid-cols-5 xl:grid-cols-6 gap-3">
         {featureProducts.map((product, idx) => (
           <div key={idx} className="snap-start flex-shrink-0 w-full sm:w-auto">
-            <ProductCard product={product} refetch={refetch} />
+            <HPCard product={product} refetch={refetch} />
           </div>
         ))}
       </div>
