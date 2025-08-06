@@ -34,6 +34,7 @@ const HomeOffers = () => {
       <div>
         {offerProducts.length > 0 && (
           <h3 className="text-2xl mb-5 font-bold">The Best Offers</h3>
+
         )}
       </div>
       {/* Preview cards */}
